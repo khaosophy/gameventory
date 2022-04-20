@@ -15,7 +15,7 @@ const firebaseConfig = {
 const firebase = initializeApp(firebaseConfig);
 export const db = getFirestore(firebase);
 
-export async function getGames(db) {
+export async function getGames() {
   const gamesCol = collection(db, 'board-games');
   const gameSnapshot = await getDocs(gamesCol);
   const gameList = gameSnapshot.docs.map(doc => doc.data());
