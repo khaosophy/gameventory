@@ -1,23 +1,21 @@
-import { useEffect, useState } from 'react';
-import { getGames } from './firebase';
+import { 
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from 'react-router-dom';
+import GamesList from './pages/games-list';
+import Home from './pages/home';
 
 function App() {
-  const [games, setGames] = useState([]);
-  useEffect(() => {
-    getGames().then(data => setGames(data));
-  }, []);
-  console.log(games);
-
-  if(!games) return;
   return (
-    <div className="container">
-      <h1>Board Games!</h1>
-      <ul>
-        {games.map(game => (
-          <li key={game.name}>{game.name}</li>
-        ))}
-      </ul>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/">
+          <Route index element={<Home />} />
+          <Route path="/games" element={<GamesList />} />
+        </Route>
+      </Routes>
+    </Router>
   );
 }
 

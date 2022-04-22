@@ -19,7 +19,7 @@ export async function getGames() {
   const gamesCol = collection(db, 'board-games');
   const gameSnapshot = await getDocs(gamesCol);
   const gameList = gameSnapshot.docs.map(doc => doc.data());
-  console.log(gameList);
+  // console.log(gameList);
   return gameList;
 }
 
