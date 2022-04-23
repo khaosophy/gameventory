@@ -1,16 +1,41 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth, registerWithEmailAndPassword } from '../firebase';
 
 export default function Register() {  
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
   const [confirmPass, setConfirmPass] = useState('');
+  const [user, loading] = useAuthState(auth);
+  const navigate = useNavigate();
+
+  /* todo: update/change password page */
+
+  useEffect(() => {
+    if(loading) return;
+    if (user) navigate('/');
+  }, [user, loading, navigate]);
+
+  function handleRegister(e) {
+    e.preventDefault();
+    // todo: confirm passwords
+    registerWithEmailAndPassword(name, email, pass);
+  }
 
   return (
     <div className="container">
       <h1 className="mb-3">Register</h1>
-      <form>
+      <form onSubmit={handleRegister}>
         {/* todo: labels */}
+        <input
+          type="text"
+          className="form-control mb-3"
+          placeholder="Full Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
         <input
           type="email"
           className="form-control mb-3"
