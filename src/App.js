@@ -5,6 +5,8 @@ import {
 } from 'react-router-dom';
 import GamesList from './pages/games-list';
 import Home from './pages/home';
+import Login from './pages/login';
+import Register from './pages/register';
 
 function App() {
   return (
@@ -13,6 +15,8 @@ function App() {
         <Route path="/">
           <Route index element={<Home />} />
           <Route path="/games" element={<GamesList />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Route>
       </Routes>
     </Router>
