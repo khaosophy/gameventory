@@ -11,14 +11,6 @@ export default function Home() {
       <div className="container">
         <h1>Hello World!</h1>
         <p>Review <Link to="/games">your board game collection.</Link></p>
-        {user && !loading && (
-          <button
-            className="btn btn-danger"
-            onClick={logout}
-          >
-            Log out
-          </button>
-        )}
       </div>
     </PageTemplate>
   )
