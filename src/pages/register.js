@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, registerWithEmailAndPassword } from '../firebase';
+import PageTemplate from '../templates/page-template';
 
 export default function Register() {  
   const [name, setName] = useState('');
@@ -25,53 +26,55 @@ export default function Register() {
   }
 
   return (
-    <div className="container">
-      <h1 className="mb-3">Register</h1>
-      <form onSubmit={handleRegister}>
-        {/* todo: labels */}
-        <input
-          type="text"
-          className="form-control mb-3"
-          placeholder="Full Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <input
-          type="email"
-          className="form-control mb-3"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input 
-          type="password"
-          className="form-control mb-3"
-          placeholder="Password"
-          value={pass}
-          onChange={(e) => setPass(e.target.value)}
-        />
-        <input 
-          type="password"
-          className="form-control mb-3"
-          placeholder="Confirm Password"
-          value={confirmPass}
-          onChange={(e) => setConfirmPass(e.target.value)}
-        />
-        <div className='d-flex align-items-center justify-content-between'>
-          <button
-            className="btn btn-primary"
-            type="submit"
-          >
-            Register
-          </button>
-          <div className='text-secondary'>
-            Already have an account? {}
-            <Link to="/login">
-              Log in here.
-            </Link>
+    <PageTemplate>
+      <div className="container">
+        <h1 className="mb-3">Register</h1>
+        <form onSubmit={handleRegister}>
+          {/* todo: labels */}
+          <input
+            type="text"
+            className="form-control mb-3"
+            placeholder="Full Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <input
+            type="email"
+            className="form-control mb-3"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input 
+            type="password"
+            className="form-control mb-3"
+            placeholder="Password"
+            value={pass}
+            onChange={(e) => setPass(e.target.value)}
+          />
+          <input 
+            type="password"
+            className="form-control mb-3"
+            placeholder="Confirm Password"
+            value={confirmPass}
+            onChange={(e) => setConfirmPass(e.target.value)}
+          />
+          <div className='d-flex align-items-center justify-content-between'>
+            <button
+              className="btn btn-primary"
+              type="submit"
+            >
+              Register
+            </button>
+            <div className='text-secondary'>
+              Already have an account? {}
+              <Link to="/login">
+                Log in here.
+              </Link>
+            </div>
           </div>
-        </div>
-      </form>
-    </div>
+        </form>
+      </div>
+    </PageTemplate>
   );
 }

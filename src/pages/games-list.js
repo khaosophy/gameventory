@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getGames } from '../firebase';
+import PageTemplate from '../templates/page-template';
 
 export default function GamesList() {
   const [games, setGames] = useState([]);
@@ -9,13 +10,15 @@ export default function GamesList() {
 
   if(!games) return;
   return (
-    <div className="container">
-      <h1>Board Games!</h1>
-      <ul>
-        {games.map(game => (
-          <li key={game.name}>{game.name}</li>
-        ))}
-      </ul>
-    </div>
+    <PageTemplate>
+      <div className="container">
+        <h1>Board Games!</h1>
+        <ul>
+          {games.map(game => (
+            <li key={game.name}>{game.name}</li>
+          ))}
+        </ul>
+      </div>
+    </PageTemplate>
   );
 }
