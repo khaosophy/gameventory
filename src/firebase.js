@@ -11,7 +11,7 @@ import {
   getAuth,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
-  // sendPasswordResetEmail,
+  sendPasswordResetEmail,
   signOut,
 } from "firebase/auth";
 
@@ -60,9 +60,9 @@ export async function registerWithEmailAndPassword(name, email, password) {
   }
 }
 
-export async function sendPasswordReset(email) {
+export async function resetPasswordEmail(email) {
   try {
-    await sendPasswordReset(auth, email);
+    await sendPasswordResetEmail(auth, email);
     alert('Password reset link sent.');
   } catch (err) {
     handleError(err);

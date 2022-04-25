@@ -1,13 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth, loginWithEmailAndPassword } from '../firebase';
+import { auth, resetPasswordEmail } from '../firebase';
 
-export default function Login() { 
-  // for detailed tutorial, view this:
-  // https://blog.logrocket.com/user-authentication-firebase-react-apps/
+export default function PasswordReset() { 
   const [email, setEmail] = useState('');
-  const [pass, setPass] = useState('');
   const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
 
@@ -19,16 +16,17 @@ export default function Login() {
     if (user) navigate('/');
   }, [user, loading, navigate]);
 
-  function handleLogin(e) {
+  function handlePasswordReset(e) {
+    /* todo: better messaging */
     e.preventDefault();
-    loginWithEmailAndPassword(email, pass)
+    resetPasswordEmail(email);
   }
 
   return (
     <div className="container">
-      <h1 className="mb-3">Login</h1>
-      <form onSubmit={handleLogin}>
-        {/* todo: labels */}
+      <h1 className="mb-3">Reset Password</h1>
+      <form onSubmit={handlePasswordReset}>
+        {/* todo: label */}
         <input
           type="email"
           className="form-control mb-3"
@@ -36,24 +34,14 @@ export default function Login() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <input 
-          type="password"
-          className="form-control mb-3"
-          placeholder="Password"
-          value={pass}
-          onChange={(e) => setPass(e.target.value)}
-        />
         <div className="d-flex align-items-center text-secondary justify-content-between">
           <div>
             <button
               className="btn btn-primary"
               type="submit"
             >
-              Log in
+              Reset Password
             </button>
-            <Link to="/reset-password" className="ms-3">
-              Forgot Password?
-            </Link>
           </div>
           <div>
             Don't have an account? {}

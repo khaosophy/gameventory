@@ -6,6 +6,7 @@ import {
 import GamesList from './pages/games-list';
 import Home from './pages/home';
 import Login from './pages/login';
+import PasswordReset from './pages/password-reset';
 import Register from './pages/register';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           <Route path="/games" element={<GamesList />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/reset-password" element={<PasswordReset />} />
         </Route>
       </Routes>
     </Router>
