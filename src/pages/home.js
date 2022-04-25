@@ -1,11 +1,7 @@
-import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom'
-import { auth, logout } from '../firebase';
 import PageTemplate from '../templates/page-template';
 
 export default function Home() {
-  const [user, loading] = useAuthState(auth);
-
   return (
     <PageTemplate>
       <div className="container">
