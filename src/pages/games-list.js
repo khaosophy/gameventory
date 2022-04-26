@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { getGames } from '../firebase';
 import PageTemplate from '../templates/page-template';
+import { HiPlus } from 'react-icons/hi';
 
 export default function GamesList() {
   const [games, setGames] = useState([]);
@@ -29,6 +31,7 @@ export default function GamesList() {
             ))}
           </tbody>
         </table>
+        <Link to="/games/add"><HiPlus /> Add a Game to Your Collection</Link>
       </div>
     </PageTemplate>
   );
