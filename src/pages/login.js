@@ -30,7 +30,7 @@ export default function Login() {
       <div className="container">
         <h1 className="mb-3">Login</h1>
         <form onSubmit={handleLogin}>
-          <label htmlFor="loginEmail" className="form-label visually-hidden">Email</label>
+          <label htmlFor="loginEmail" className="visually-hidden">Email</label>
           <input
             id="loginEmail"
             type="email"
@@ -39,7 +39,7 @@ export default function Login() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <label htmlFor="loginPass" className="form-label visually-hidden">Password</label>
+          <label htmlFor="loginPass" className="visually-hidden">Password</label>
           <input 
             id="loginPass"
             type="password"
