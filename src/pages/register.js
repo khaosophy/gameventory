@@ -30,43 +30,52 @@ export default function Register() {
       <div className="container">
         <h1 className="mb-3">Register</h1>
         <form onSubmit={handleRegister}>
-          {/* todo: labels */}
+          <label htmlFor="registerName" className='visually-hidden'>Full Name</label>
           <input
+            id="registerName"
             type="text"
             className="form-control mb-3"
             placeholder="Full Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
+          <label htmlFor="registerEmail" className='visually-hidden'>Email</label>
           <input
+            id="registerEmail"
             type="email"
             className="form-control mb-3"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
+          <label htmlFor="registerPassword" className='visually-hidden'>Password</label>
           <input 
+            id="registerPassword"
             type="password"
             className="form-control mb-3"
             placeholder="Password"
             value={pass}
             onChange={(e) => setPass(e.target.value)}
           />
+          <label htmlFor="passwordConfirmation" className='visually-hidden'>Confirm Password</label>
           <input 
+            id="passwordConfirmation"
             type="password"
             className="form-control mb-3"
             placeholder="Confirm Password"
             value={confirmPass}
             onChange={(e) => setConfirmPass(e.target.value)}
           />
-          <div className='d-flex align-items-center justify-content-between'>
-            <button
-              className="btn btn-primary"
-              type="submit"
-            >
-              Register
-            </button>
-            <div className='text-secondary'>
+          <div className='row align-items-center'>
+            <div className="col-md-auto">
+              <button
+                className="btn btn-primary"
+                type="submit"
+              >
+                Register
+              </button>
+            </div>
+            <div className='col-md my-3 my-md-0 text-md-end text-secondary'>
               Already have an account? {}
               <Link to="/login">
                 Log in here.
