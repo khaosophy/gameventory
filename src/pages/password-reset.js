@@ -28,16 +28,17 @@ export default function PasswordReset() {
       <div className="container">
         <h1 className="mb-3">Reset Password</h1>
         <form onSubmit={handlePasswordReset}>
-          {/* todo: label */}
+          <label htmlFor="passwordResetEmail" className="visually-hidden">Email</label>
           <input
+            id="passwordResetEmail"
             type="email"
             className="form-control mb-3"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <div className="d-flex align-items-center text-secondary justify-content-between">
-            <div>
+          <div className="row align-items-center">
+            <div className="col-md-auto">
               <button
                 className="btn btn-primary"
                 type="submit"
@@ -45,7 +46,7 @@ export default function PasswordReset() {
                 Reset Password
               </button>
             </div>
-            <div>
+            <div className="col-md my-3 my-md-0 text-md-end text-secondary">
               Don't have an account? {}
               <Link to="/register">
                 Sign Up Today.
