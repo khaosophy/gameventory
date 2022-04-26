@@ -30,34 +30,39 @@ export default function Login() {
       <div className="container">
         <h1 className="mb-3">Login</h1>
         <form onSubmit={handleLogin}>
-          {/* todo: labels */}
+          <label htmlFor="loginEmail" className="form-label visually-hidden">Email</label>
           <input
+            id="loginEmail"
             type="email"
             className="form-control mb-3"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
+          <label htmlFor="loginPass" className="form-label visually-hidden">Password</label>
           <input 
+            id="loginPass"
             type="password"
             className="form-control mb-3"
             placeholder="Password"
             value={pass}
             onChange={(e) => setPass(e.target.value)}
           />
-          <div className="d-flex align-items-center text-secondary justify-content-between">
-            <div>
+          <div className="row align-items-center">
+            <div className="col-md-auto">
               <button
                 className="btn btn-primary"
                 type="submit"
               >
                 Log in
               </button>
-              <Link to="/reset-password" className="ms-3">
+            </div>
+            <div className="col-md-3 my-3 my-md-0">
+              <Link to="/reset-password">
                 Forgot Password?
               </Link>
             </div>
-            <div>
+            <div className="col-md text-md-end">
               Don't have an account? {}
               <Link to="/register">
                 Sign Up Today.
