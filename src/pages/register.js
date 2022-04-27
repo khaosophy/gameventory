@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, registerWithEmailAndPassword } from '../firebase';
 import PageTemplate from '../templates/page-template';
+import InputField from '../components/input-field';
 
 export default function Register() {  
   const [name, setName] = useState('');
@@ -30,42 +31,37 @@ export default function Register() {
       <div className="container">
         <h1 className="mb-3">Register</h1>
         <form onSubmit={handleRegister}>
-          <label htmlFor="registerName" className='visually-hidden'>Full Name</label>
-          <input
+          <InputField
             id="registerName"
-            type="text"
-            className="form-control mb-3"
-            placeholder="Full Name"
+            label="Full Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          <label htmlFor="registerEmail" className='visually-hidden'>Email</label>
-          <input
+
+          <InputField
             id="registerEmail"
+            label="Email"
             type="email"
-            className="form-control mb-3"
-            placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <label htmlFor="registerPassword" className='visually-hidden'>Password</label>
-          <input 
+          
+          <InputField
             id="registerPassword"
+            label="Password"
             type="password"
-            className="form-control mb-3"
-            placeholder="Password"
             value={pass}
             onChange={(e) => setPass(e.target.value)}
           />
-          <label htmlFor="passwordConfirmation" className='visually-hidden'>Confirm Password</label>
-          <input 
+
+          <InputField
             id="passwordConfirmation"
+            label="Confirm Password"
             type="password"
-            className="form-control mb-3"
-            placeholder="Confirm Password"
             value={confirmPass}
             onChange={(e) => setConfirmPass(e.target.value)}
           />
+          
           <div className='row align-items-center'>
             <div className="col-md-auto">
               <button

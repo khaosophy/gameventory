@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, loginWithEmailAndPassword } from '../firebase';
 import PageTemplate from '../templates/page-template';
+import InputField from '../components/input-field';
 
 export default function Login() { 
   // for detailed tutorial, view this:
@@ -30,24 +31,22 @@ export default function Login() {
       <div className="container">
         <h1 className="mb-3">Login</h1>
         <form onSubmit={handleLogin}>
-          <label htmlFor="loginEmail" className="visually-hidden">Email</label>
-          <input
+          <InputField
             id="loginEmail"
-            type="email"
-            className="form-control mb-3"
-            placeholder="Email"
+            label="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            type="email"
           />
-          <label htmlFor="loginPass" className="visually-hidden">Password</label>
-          <input 
+
+          <InputField
             id="loginPass"
-            type="password"
-            className="form-control mb-3"
-            placeholder="Password"
+            label="Password"
             value={pass}
             onChange={(e) => setPass(e.target.value)}
+            type="password"
           />
+          
           <div className="row align-items-center">
             <div className="col-md-auto">
               <button

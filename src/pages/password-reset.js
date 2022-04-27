@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, resetPasswordEmail } from '../firebase';
 import PageTemplate from '../templates/page-template';
+import InputField from '../components/input-field';
 
 export default function PasswordReset() { 
   const [email, setEmail] = useState('');
@@ -28,15 +29,14 @@ export default function PasswordReset() {
       <div className="container">
         <h1 className="mb-3">Reset Password</h1>
         <form onSubmit={handlePasswordReset}>
-          <label htmlFor="passwordResetEmail" className="visually-hidden">Email</label>
-          <input
+          <InputField
             id="passwordResetEmail"
+            label="Email"
             type="email"
-            className="form-control mb-3"
-            placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
+          
           <div className="row align-items-center">
             <div className="col-md-auto">
               <button
