@@ -1,3 +1,4 @@
+import slugify from 'slugify';
 import { initializeApp } from 'firebase/app';
 import { 
   getFirestore,
@@ -6,6 +7,8 @@ import {
   // query,
   // where,
   addDoc,
+  doc,
+  setDoc,
 } from 'firebase/firestore/lite';
 import {
   getAuth,
@@ -79,4 +82,14 @@ export async function getGames() {
   const gameList = gameSnapshot.docs.map(doc => doc.data());
   // console.log(gameList);
   return gameList;
+}
+
+export async function addGame(game) {
+  try {
+    const gameId = slugify(game.name).toLowerCase();
+    await setDoc(doc(db, "board-games", gameId), game);
+    console.log(`${game.name} was successfully added to the database`);
+  } catch (err) {
+    handleError(err);
+  }
 }

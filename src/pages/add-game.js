@@ -1,17 +1,29 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { addGame } from '../firebase';
 import PageTemplate from '../templates/page-template';
 import InputField from '../components/input-field';
 
 export default function AddGame() {
+  const navigate = useNavigate();
   const [name, setName] = useState('');
   const [minPlayers, setMinPlayers] = useState('');
   const [maxPlayers, setMaxPlayers] = useState('');
   const [minTime, setMinTime] = useState('');
   const [maxTime, setMaxTime] = useState('');
   
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('submitted!');
+    const game = {
+      name,
+      minPlayers: parseInt(minPlayers),
+      maxPlayers: parseInt(maxPlayers),
+      minTime: parseInt(minTime),
+      maxTime: parseInt(maxPlayers),
+    };
+    await addGame(game);
+    navigate('/games');
+    /* todo: error handling? */
   }
 
   return (
@@ -39,6 +51,7 @@ export default function AddGame() {
             label="Maximum Number of Players"
             type="number"
           />
+          {/* todo: "in minutes" messaging */}
           <InputField
             id="addGameMinTime"
             value={minTime}
