@@ -36,6 +36,7 @@ export function GameCard({ game }) {
         </div>
       </div>
       <div className="game-card__actions">
+        {/* todo: collection functionality */}
         <button className="btn btn-outline-primary">Add to Collection</button>
         <button className="btn btn-outline-secondary">Add to Wish List</button>
       </div>

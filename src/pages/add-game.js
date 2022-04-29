@@ -3,21 +3,27 @@ import { bgSearch } from '../lib/bgatlas';
 import PageTemplate from '../templates/page-template';
 import InputField from '../components/input-field';
 import GameList from '../components/game-list';
+import Loading from '../components/loading';
 
 export default function AddGame() {
-  /* todo: loading state (after form submit, before data shows) */
+  /* todo: pagination. if the API returns more than a certain number of results, it truncates */
   const [name, setName] = useState('');
   const [games, setGames] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     /**
      * First, check against the Firebase data. (TODO)
      * If nothing is found, query the Board Game Atlas API
      */
     const games = await bgSearch(name);
     setGames(games);
+    setLoading(false);
   }
+
+  if(loading) return <Loading />;
 
   return (
     <PageTemplate>
