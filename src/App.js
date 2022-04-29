@@ -16,7 +16,7 @@ function App() {
       <Routes>
         <Route path="/">
           <Route index element={<Home />} />
-          {/* todo: use v5 syntax */}
+          {/* todo: these games routes should be protected */}
           <Route path="/games" element={<GamesList />} />
           <Route path="/games/add" element={<AddGame />} />
           <Route path="/login" element={<Login />} />
