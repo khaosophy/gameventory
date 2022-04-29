@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { bgSearch } from '../lib/bgatlas';
 import PageTemplate from '../templates/page-template';
 import InputField from '../components/input-field';
+import GameList from '../components/game-list';
 
 export default function AddGame() {
   /* todo: loading state (after form submit, before data shows) */
@@ -38,15 +39,5 @@ export default function AddGame() {
         </form>
       </div>
     </PageTemplate>
-  )
-}
-
-function GameList({ games }) {
-  if (!games) return null;
-  if (!games.length) return <p>No games found.</p>
-  return (
-    <ul className="game-list">
-      {games.map((game) => <li key={game.id}>{game.name}</li>)}
-    </ul>
   )
 }
