@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 export default function InputField(props) {
   const { 
     type =' text',
     visuallyHidden = true,
+    disableMargin = false,
   } = props;
 
   return (
@@ -17,7 +19,7 @@ export default function InputField(props) {
       <input
         id={props.id}
         type={type}
-        className="form-control mb-3"
+        className={classNames('form-control', { 'mb-3': !disableMargin })}
         placeholder={props.placeholder || props.label}
         value={props.value}
         onChange={props.onChange}
@@ -39,4 +41,6 @@ InputField.propTypes = {
     'email',
   ]),
   visuallyHidden: PropTypes.bool,
+  // consider changing disableMargin to something more contextual, like `isInputGroup`
+  disableMargin: PropTypes.bool,
 }
