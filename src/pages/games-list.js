@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth, getUserGames } from '../firebase';
+import { auth, getUserGames, removeGameFromUserCollection } from '../firebase';
 import PageTemplate from '../templates/page-template';
 import { HiPlus } from 'react-icons/hi';
 import Loading from '../components/loading';
@@ -25,6 +25,14 @@ export default function GamesList() {
   if(!user) navigate('/login'); // todo: not working
 
   if(!games) return;
+
+  const handleRemoveGame = async (id) => {
+    if(!window.confirm('Are you sure you want to delete this game from your collection?')) return;
+    await removeGameFromUserCollection(id);
+    const newGameList = [...games].filter(game => game.atlasId !== id);
+    setGames(newGameList);
+  }
+
   return (
     <PageTemplate>
       <div className="container">
@@ -43,6 +51,15 @@ export default function GamesList() {
                 <td>{game.name}</td>
                 <td>{game.minPlayers} - {game.maxPlayers}</td>
                 <td>{game.minPlaytime} - {game.maxPlaytime}</td>
+                <td>
+                  <button
+                    className="btn btn-outline-danger"
+                    title="Remove from your Collection"
+                    onClick={() => handleRemoveGame(game.atlasId)}
+                  >
+                    Remove
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>

@@ -138,3 +138,28 @@ export async function addGameToUser(gameId) {
     handleError(err);
   }
 }
+
+export async function removeGameFromUserCollection(gameId) {
+  try {
+    const userId = auth.currentUser.uid;
+      
+    // find user in database using uid
+    const userRef = doc(db, 'users', userId);
+    const userSnap = await getDoc(userRef);
+    if(!userSnap.exists()) return false // todo: throw error
+    const user = userSnap.data();
+
+    // todo: extract the above into a separate function (repeats in several other functions)
+
+    // update game list
+    const newGameList = [...user.games].filter(game => game !== gameId);
+
+    // set updated user record
+    await updateDoc(userRef, {
+      games: newGameList,
+    })
+    console.log('game removed from user\'s collection');
+  } catch (err) {
+    handleError(err);
+  }
+}
