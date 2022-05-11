@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { addGame } from '../firebase';
+import { addGameToDb } from '../firebase';
 import InputField from '../components/input-field';
 
 export default function AddGameForm() {
@@ -24,7 +24,7 @@ export default function AddGameForm() {
       minTime: parseInt(minTime),
       maxTime: parseInt(maxPlayers),
     };
-    await addGame(game);
+    await addGameToDb(game);
     navigate('/games');
     /* todo: error handling? */
   }

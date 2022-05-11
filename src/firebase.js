@@ -4,11 +4,12 @@ import {
   getFirestore,
   collection,
   getDocs,
+  getDoc,
   // query,
   // where,
-  addDoc,
   doc,
   setDoc,
+  updateDoc,
 } from 'firebase/firestore/lite';
 import {
   getAuth,
@@ -51,11 +52,9 @@ export async function registerWithEmailAndPassword(name, email, password) {
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
     const user = res.user;
-    await addDoc(collection(db, 'users'), {
-      /* todo: what is authProvider? */
-      uid: user.uid,
+    await setDoc(doc(db, 'users', user.uid), {
       name,
-      authProvider: 'local',
+      authProvider: 'local', // todo: what is auth provider?
       email,
     });
   } catch (err) {
@@ -80,15 +79,48 @@ export async function getGames() {
   const gamesCol = collection(db, 'board-games');
   const gameSnapshot = await getDocs(gamesCol);
   const gameList = gameSnapshot.docs.map(doc => doc.data());
-  // console.log(gameList);
   return gameList;
 }
 
-export async function addGame(game) {
+export async function getGame(id) {
+  const gameSnap = await getDoc(doc(db, 'board-games', id));
+  if(gameSnap.exists()) return gameSnap.data();
+  return false; // todo: throw error?
+}
+
+export async function addGameToDb(game) {
   try {
-    const gameId = slugify(game.name).toLowerCase();
+    const gameId = slugify(game.name).toLowerCase(); // todo: remove colon?
     await setDoc(doc(db, "board-games", gameId), game);
     console.log(`${game.name} was successfully added to the database`);
+  } catch (err) {
+    handleError(err);
+  }
+}
+
+export async function addGameToUser(gameId) {
+  // todo: check if game is already in collection
+  try {
+    const userId = auth.currentUser.uid;
+    
+    // find user in database using uid
+    const userRef = doc(db, 'users', userId);
+    const userSnap = await getDoc(userRef);
+    if(!userSnap.exists()) return false // todo: throw error
+    const user = userSnap.data();
+
+    // update game list for user
+    let newGameList;
+    if(user.games) {
+      newGameList = [...user.games, gameId];
+    } else {
+      newGameList = [gameId];
+    }
+
+    await updateDoc(userRef, {
+      games: newGameList,
+    });
+    console.log('game added to user\'s collection');
   } catch (err) {
     handleError(err);
   }
