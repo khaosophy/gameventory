@@ -1,4 +1,4 @@
-import { addGameToDb, addGameToUser, getGame } from '../firebase';
+import { addGameToDb, addGameToUser } from '../firebase';
 import './game-list.css';
 
 // todo: fetch results from db first, then fetch from Game Atlas
