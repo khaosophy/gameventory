@@ -1,14 +1,28 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { getGames } from '../firebase';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth, getUserGames } from '../firebase';
 import PageTemplate from '../templates/page-template';
 import { HiPlus } from 'react-icons/hi';
+import Loading from '../components/loading';
 
 export default function GamesList() {
   const [games, setGames] = useState([]);
+  const [user, isUserLoading] = useAuthState(auth);
+  const [isDataLoading, setIsDataLoading] = useState(true);
+  const navigate = useNavigate();
+
   useEffect(() => {
-    getGames().then(data => setGames(data));
-  }, []);
+    if(isUserLoading) return;
+    getUserGames().then(data => {
+      setGames(data)
+      setIsDataLoading(false);
+    });
+  }, [isUserLoading]);
+
+  if(isUserLoading || isDataLoading) return <Loading />;
+
+  if(!user) navigate('/login'); // todo: not working
 
   if(!games) return;
   return (

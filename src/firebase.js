@@ -5,8 +5,8 @@ import {
   collection,
   getDocs,
   getDoc,
-  // query,
-  // where,
+  query,
+  where,
   doc,
   setDoc,
   updateDoc,
@@ -75,9 +75,22 @@ export function logout() {
   signOut(auth);
 }
 
-export async function getGames() {
-  const gamesCol = collection(db, 'board-games');
-  const gameSnapshot = await getDocs(gamesCol);
+export async function getUserGames() {
+  // get list of user games
+  const userId = auth.currentUser.uid;
+  const userRef = doc(db, 'users', userId);
+  const userSnap = await getDoc(userRef);
+  if(!userSnap.exists()) return false // todo: throw error
+  const user = userSnap.data();
+  const userGames = user.games || [];
+  // todo: extract above into own function. it is duplicated in addGameToUser
+  
+  // get data from db based on user list
+  const gameQuery = query(
+    collection(db, 'board-games'),
+    where('atlasId', 'in', userGames)
+  );
+  const gameSnapshot = await getDocs(gameQuery);
   const gameList = gameSnapshot.docs.map(doc => doc.data());
   return gameList;
 }
