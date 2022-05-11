@@ -20,6 +20,7 @@ export default function GamesList() {
             <tr>
               <th>Game Name</th>
               <th>Number of Players</th>
+              <th>Playtime</th>
             </tr>
           </thead>
           <tbody>
@@ -27,6 +28,7 @@ export default function GamesList() {
               <tr key={game.name}>
                 <td>{game.name}</td>
                 <td>{game.minPlayers} - {game.maxPlayers}</td>
+                <td>{game.minPlaytime} - {game.maxPlaytime}</td>
               </tr>
             ))}
           </tbody>

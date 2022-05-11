@@ -18,7 +18,7 @@ export function GameCard({ game }) {
     name,
     min_players: minPlayers,
     max_players: maxPlayers,
-    min_playtime: minPlayTime,
+    min_playtime: minPlaytime,
     max_playtime: maxPlaytime,
     images,
   } = game;
@@ -30,7 +30,7 @@ export function GameCard({ game }) {
       name,
       minPlayers,
       maxPlayers,
-      minPlayTime,
+      minPlaytime,
       maxPlaytime,
     });
     addGameToUser(atlasId);
@@ -47,7 +47,7 @@ export function GameCard({ game }) {
         </div>
         <div className="game-card__time-range">
           Playtime: {}
-          <span>{minPlayTime} - {maxPlaytime}</span>
+          <span>{minPlaytime} - {maxPlaytime}</span>
         </div>
       </div>
       <div className="game-card__actions">
