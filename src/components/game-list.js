@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { addGameToDb, addGameToUser } from '../firebase';
 import './game-list.css';
 
@@ -13,6 +14,7 @@ export default function GameList({ games }) {
 }
 
 export function GameCard({ game }) {
+  const navigate = useNavigate();
   const {
     id,
     name,
@@ -23,7 +25,7 @@ export function GameCard({ game }) {
     images,
   } = game;
 
-  const addGameToCollection = (event, atlasId) => {
+  const addGameToCollection = async (event, atlasId) => {
     event.preventDefault();    
     addGameToDb({
       atlasId,
@@ -33,7 +35,8 @@ export function GameCard({ game }) {
       minPlaytime,
       maxPlaytime,
     });
-    addGameToUser(atlasId);
+    await addGameToUser(atlasId);
+    navigate('/games');
   }
 
   return (
