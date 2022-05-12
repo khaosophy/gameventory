@@ -1,19 +1,41 @@
+
+import { useState, useEffect } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
-import { addGameToDb, addGameToUser } from '../firebase';
+import { addGameToDb, addGameToUser, getUserGameIDs, auth } from '../firebase';
 import './game-list.css';
 
 // todo: fetch results from db first, then fetch from Game Atlas
 export default function GameList({ games }) {
+  const [user] = useAuthState(auth);
+  const [userGames, setUserGames] = useState([]);
+  useEffect(() => {
+    /* todo: move this to page level? */
+    async function getOwnedGames() {
+      const userGameIDs = await getUserGameIDs();
+      setUserGames(userGameIDs);
+    }
+    if(!user) return;
+    getOwnedGames();
+  }, [user]);
+
   if (!games) return null;
   if (!games.length) return <p>No games found.</p>
+
   return (
     <ul className="game-list list-unstyled mt-5">
-      {games.map((game) => <GameCard key={game.id} {...{ game }} />)}
+      {games.map((game) => (
+        <GameCard
+          key={game.id}
+          owned={userGames.includes(game.id)}
+          {...{ game }}
+        />
+      ))}
     </ul>
   )
 }
 
-export function GameCard({ game }) {
+export function GameCard({ owned, game }) {
   const navigate = useNavigate();
   const {
     id,
@@ -26,7 +48,7 @@ export function GameCard({ game }) {
   } = game;
 
   const addGameToCollection = async (event, atlasId) => {
-    event.preventDefault();    
+    event.preventDefault();
     addGameToDb({
       atlasId,
       name,
@@ -54,13 +76,18 @@ export function GameCard({ game }) {
         </div>
       </div>
       <div className="game-card__actions">
+        {owned ? (
+          <button className="btn btn-secondary" disabled>
+            Already Collected
+          </button>
+        ) : (
         <button 
           className="btn btn-outline-primary"
           onClick={(e) => addGameToCollection(e, id)}
         >
-          {/* todo: if already in collection? */}
           Add to Collection
         </button>
+        )}
         {/* todo: wish list functionality */}
         <button
           className="btn btn-outline-secondary"

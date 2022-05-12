@@ -95,6 +95,16 @@ export async function getUserGames() {
   return gameList;
 }
 
+export async function getUserGameIDs() {
+  // get list of user games
+  const userId = auth.currentUser.uid;
+  const userRef = doc(db, 'users', userId);
+  const userSnap = await getDoc(userRef);
+  if(!userSnap.exists()) return false // todo: throw error
+  const user = userSnap.data();
+  return user.games || [];
+}
+
 export async function getGame(id) {
   const gameSnap = await getDoc(doc(db, 'board-games', id));
   if(gameSnap.exists()) return gameSnap.data();
