@@ -62,7 +62,7 @@ export function GameCard({ owned, game }) {
   }
 
   return (
-    <li className="game-card border shadow-sm mb-4 p-2">
+    <li className="game-card bg-white border shadow-sm mb-4 p-2">
       <img className="game-card__image" src={images.small} alt="" />
       <div className="game-card__details">
         <h3 className="game-card__title h5">{name}</h3>
@@ -89,12 +89,12 @@ export function GameCard({ owned, game }) {
         </button>
         )}
         {/* todo: wish list functionality */}
-        <button
+        {/* <button
           className="btn btn-outline-secondary"
           onClick={(e) => e.preventDefault()}
         >
           Add to Wish List
-        </button>
+        </button> */}
       </div>
     </li>
   )

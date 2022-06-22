@@ -37,7 +37,7 @@ export default function GamesList() {
     <PageTemplate>
       <div className="container">
         <h1>Board Games!</h1>
-        <table className="table">
+        <table className="table align-middle">
           <thead>
             <tr>
               <th>Game Name</th>
