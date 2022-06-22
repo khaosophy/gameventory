@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import './footer.css';
 
 export default function Footer() {
@@ -10,13 +9,13 @@ export default function Footer() {
         </div>
         <div className="footer__utility-nav" />
         <div className="footer__social text-end">
-          <Link to="https://github.com/khaosophy/gamebook">
+          <a href="https://github.com/khaosophy/gamebook">
             Source Code
-          </Link>  
+          </a>  
           {} by {}
-          <Link to="https://caseyjamesperno.com">
+          <a href="https://caseyjamesperno.com">
             Casey James Perno
-          </Link>
+          </a>
         </div>
       </div>
     </footer>
