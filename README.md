@@ -12,6 +12,10 @@ Here is a list of upcoming features:
 * Randomize!
   * Pick the host, number of players, and length of time and have the app pick a game for you from the host's inventory.
 
+## Brand
+
+The logo was created using [FreeLogo Design](freelogodesign.org). The sunburst color is #e78200. The font is AudioWide using #650d88 as a color.
+
 ## Available Scripts
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). In the project directory, you can run:
