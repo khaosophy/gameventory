@@ -22,9 +22,11 @@ export default function GamesList() {
 
   const handleRemoveGame = async (id) => {
     if(!window.confirm('Are you sure you want to delete this game from your collection?')) return;
+    setIsDataLoading(true);
     await removeGameFromUserCollection(id);
     const newGameList = [...games].filter(game => game.atlasId !== id);
     setGames(newGameList);
+    setIsDataLoading(false);
   }
 
   return (
