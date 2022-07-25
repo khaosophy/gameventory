@@ -14,15 +14,14 @@ export default function GamesList() {
 
   useEffect(() => {
     if(isUserLoading) return;
+    if(!isUserLoading && !user) return navigate('/login');
     getUserGames().then(data => {
       setGames(data)
       setIsDataLoading(false);
     });
-  }, [isUserLoading]);
+  }, [isUserLoading, user, navigate]);
 
   if(isUserLoading || isDataLoading) return <Loading />;
-
-  if(!user) navigate('/login'); // todo: not working
 
   if(!games) return;
 

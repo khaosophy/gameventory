@@ -39,6 +39,7 @@ InputField.propTypes = {
     'tel',
     'number',
     'email',
+    'password',
   ]),
   visuallyHidden: PropTypes.bool,
   // consider changing disableMargin to something more contextual, like `isInputGroup`
