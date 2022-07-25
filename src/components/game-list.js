@@ -6,7 +6,7 @@ import { addGameToDb, addGameToUser, getUserGameIDs, auth } from '../firebase';
 import './game-list.css';
 
 // todo: fetch results from db first, then fetch from Game Atlas
-export default function GameList({ games }) {
+export default function GameList({ games, count }) {
   const [user] = useAuthState(auth);
   const [userGames, setUserGames] = useState([]);
   useEffect(() => {
@@ -22,7 +22,8 @@ export default function GameList({ games }) {
   if (!games) return null;
   if (!games.length) return <p>No games found.</p>
 
-  return (
+  return (<>
+    <p>Showing {count} of {count} games</p>
     <ul className="game-list list-unstyled mt-5">
       {games.map((game) => (
         <GameCard
@@ -32,7 +33,7 @@ export default function GameList({ games }) {
         />
       ))}
     </ul>
-  )
+  </>)
 }
 
 export function GameCard({ owned, game }) {

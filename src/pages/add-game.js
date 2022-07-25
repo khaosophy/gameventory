@@ -8,6 +8,7 @@ import Loading from '../components/loading';
 export default function AddGame() {
   const [name, setName] = useState('');
   const [games, setGames] = useState(null);
+  const [count, setCount] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -17,8 +18,9 @@ export default function AddGame() {
      * First, check against the Firebase data. (TODO)
      * If nothing is found, query the Board Game Atlas API
      */
-    const games = await bgSearch(name);
+    const { games, count }= await bgSearch(name);
     setGames(games);
+    setCount(count);
     setLoading(false);
   }
 
@@ -40,7 +42,7 @@ export default function AddGame() {
             <button type="submit" className="btn btn-primary">Find</button>
           </div>
 
-          <GameList games={games} />
+          <GameList games={games} count={count} />
         </form>
       </div>
     </PageTemplate>

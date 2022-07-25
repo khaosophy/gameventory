@@ -6,5 +6,5 @@ export const bgSearch = async (name) => {
   const searchUrl = `${apiBaseUrl}/search?client_id=${clientId}&name=${name}`;
   const response = await fetch(searchUrl);
   const data = await response.json();
-  return data.games;
+  return data;
 }
