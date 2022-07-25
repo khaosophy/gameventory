@@ -8,11 +8,17 @@ export default function Header() {
   const [user, loading] = useAuthState(auth);
   return (
     <header className="border-bottom">
-      <div className="container py-2 d-flex align-items-center justify-content-between">
-        <Link to="/">
+      <div className="container py-2 d-flex align-items-center">
+        <Link to="/" className="me-auto">
           <img src={logo} className="logo" alt="GameBook Logo" />
         </Link>
-        <nav></nav>
+        <nav>
+          <ul className="navbar-nav d-flex flex-row">
+            <li className="nav-item me-3">
+              <Link to="/games" className="nav-link">Game Collection</Link>
+            </li>
+          </ul>
+        </nav>
         <div>
           {user && !loading ? (
             <button
