@@ -39,7 +39,6 @@ function handleError(err) {
 }
 
 export async function loginWithEmailAndPassword(email, password) {
-  /* todo: check if user exists? how does pass validation work? */
   try {
     await signInWithEmailAndPassword(auth, email, password);
   } catch (err) {
@@ -48,13 +47,12 @@ export async function loginWithEmailAndPassword(email, password) {
 }
 
 export async function registerWithEmailAndPassword(name, email, password) {
-  // todo: check if user already exists?
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
     const user = res.user;
     await setDoc(doc(db, 'users', user.uid), {
       name,
-      authProvider: 'local', // todo: what is auth provider?
+      authProvider: 'local',
       email,
     });
   } catch (err) {
@@ -122,7 +120,6 @@ export async function addGameToDb(game) {
 }
 
 export async function addGameToUser(gameId) {
-  // todo: check if game is already in collection
   try {
     const userId = auth.currentUser.uid;
     

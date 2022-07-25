@@ -6,7 +6,6 @@ import GameList from '../components/game-list';
 import Loading from '../components/loading';
 
 export default function AddGame() {
-  /* todo: pagination. if the API returns more than a certain number of results, it truncates */
   const [name, setName] = useState('');
   const [games, setGames] = useState(null);
   const [loading, setLoading] = useState(false);
