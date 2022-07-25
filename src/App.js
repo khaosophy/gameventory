@@ -10,6 +10,7 @@ import PasswordReset from './pages/password-reset';
 import Register from './pages/register';
 import AddGame from './pages/add-game';
 import NotFoundPage from './pages/404';
+import ProtectedRoute from './components/protected-route';
 
 function App() {
   return (
@@ -18,8 +19,10 @@ function App() {
         <Route path="/">
           <Route index element={<Home />} />
           
-          <Route path="/games" element={<GamesList />} />
-          <Route path="/games/add" element={<AddGame />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="/games" element={<GamesList />} />
+            <Route path="/games/add" element={<AddGame />} />
+          </Route>
           
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
