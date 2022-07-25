@@ -1,27 +1,22 @@
 import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth, getUserGames, removeGameFromUserCollection } from '../firebase';
+import { Link } from 'react-router-dom';
+import { getUserGames, removeGameFromUserCollection } from '../firebase';
 import PageTemplate from '../templates/page-template';
 import { HiPlus } from 'react-icons/hi';
 import Loading from '../components/loading';
 
 export default function GamesList() {
   const [games, setGames] = useState([]);
-  const [user, isUserLoading] = useAuthState(auth);
   const [isDataLoading, setIsDataLoading] = useState(true);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    if(isUserLoading) return;
-    if(!isUserLoading && !user) return navigate('/login');
     getUserGames().then(data => {
       setGames(data)
       setIsDataLoading(false);
     });
-  }, [isUserLoading, user, navigate]);
+  }, []);
 
-  if(isUserLoading || isDataLoading) return <Loading />;
+  if(isDataLoading) return <Loading />;
 
   if(!games) return;
 
