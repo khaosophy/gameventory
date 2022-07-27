@@ -37,6 +37,7 @@ export default function Login() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             type="email"
+            autoComplete="email"
           />
 
           <InputField
@@ -45,6 +46,7 @@ export default function Login() {
             value={pass}
             onChange={(e) => setPass(e.target.value)}
             type="password"
+            autoComplete="current-password"
           />
           
           <div className="row align-items-center">

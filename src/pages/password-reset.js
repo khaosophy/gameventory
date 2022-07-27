@@ -35,6 +35,7 @@ export default function PasswordReset() {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            autoComplete="email"
           />
           
           <div className="row align-items-center">

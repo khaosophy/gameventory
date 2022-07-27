@@ -36,6 +36,7 @@ export default function Register() {
             label="Full Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            autoComplete="name"
           />
 
           <InputField
@@ -44,6 +45,7 @@ export default function Register() {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            autoComplete="email"
           />
           
           <InputField
@@ -52,6 +54,7 @@ export default function Register() {
             type="password"
             value={pass}
             onChange={(e) => setPass(e.target.value)}
+            autoComplete="new-password"
           />
 
           <InputField
@@ -60,6 +63,7 @@ export default function Register() {
             type="password"
             value={confirmPass}
             onChange={(e) => setConfirmPass(e.target.value)}
+            autoComplete="new-password"
           />
           
           <div className='row align-items-center'>
