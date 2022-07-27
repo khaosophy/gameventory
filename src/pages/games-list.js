@@ -30,7 +30,7 @@ export default function GamesList() {
   }
 
   return (
-    <PageTemplate>
+    <PageTemplate title="My Games">
       <div className="container">
         <h1>Your Board Game Collection</h1>
         <table className="table align-middle">

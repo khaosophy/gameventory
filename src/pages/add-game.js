@@ -27,7 +27,7 @@ export default function AddGame() {
   if(loading) return <Loading />;
 
   return (
-    <PageTemplate>
+    <PageTemplate title="Grow My Game Collection">
       <div className="container">
         <h1 className="mb-4">Add a Game to Your Collection</h1>
         <form onSubmit={handleSubmit}>

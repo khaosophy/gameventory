@@ -27,7 +27,7 @@ export default function Register() {
   }
 
   return (
-    <PageTemplate>
+    <PageTemplate title="Register">
       <div className="container">
         <h1 className="mb-3">Register</h1>
         <form onSubmit={handleRegister}>

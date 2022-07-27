@@ -25,7 +25,7 @@ export default function PasswordReset() {
   }
 
   return (
-    <PageTemplate>
+    <PageTemplate title="Reset Password">
       <div className="container">
         <h1 className="mb-3">Reset Password</h1>
         <form onSubmit={handlePasswordReset}>

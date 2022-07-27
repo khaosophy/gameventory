@@ -27,7 +27,7 @@ export default function Login() {
   }
 
   return (
-    <PageTemplate>
+    <PageTemplate title="Login">
       <div className="container">
         <h1 className="mb-3">Login</h1>
         <form onSubmit={handleLogin}>
