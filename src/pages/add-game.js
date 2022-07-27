@@ -38,6 +38,7 @@ export default function AddGame() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               disableMargin
+              autoFocus
             />
             <button type="submit" className="btn btn-primary">Find</button>
           </div>

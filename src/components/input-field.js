@@ -24,6 +24,7 @@ export default function InputField(props) {
         value={props.value}
         onChange={props.onChange}
         autoComplete={props.autoComplete}
+        autoFocus={props.autoFocus}
       />
     </>
   )
@@ -46,4 +47,5 @@ InputField.propTypes = {
   visuallyHidden: PropTypes.bool,
   // consider changing disableMargin to something more contextual, like `isInputGroup`
   disableMargin: PropTypes.bool,
+  autoFocus: PropTypes.bool,
 }
