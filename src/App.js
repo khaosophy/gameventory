@@ -2,9 +2,9 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
+  Navigate,
 } from 'react-router-dom';
 import GamesList from './pages/games-list';
-import Home from './pages/home';
 import Login from './pages/login';
 import PasswordReset from './pages/password-reset';
 import Register from './pages/register';
@@ -16,10 +16,12 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/">
-          <Route index element={<Home />} />
-          
+        <Route path="/">          
           <Route element={<ProtectedRoute />}>
+            {/**
+             * If a user is logged in, direct them to the games page. Otherwise, ask them to log in.
+             */}
+            <Route index element={<Navigate to="/games" />} />
             <Route path="/games" element={<GamesList />} />
             <Route path="/games/add" element={<AddGame />} />
           </Route>
