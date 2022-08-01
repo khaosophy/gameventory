@@ -33,6 +33,7 @@ export default function GamesList() {
     <PageTemplate title="My Games">
       <div className="container">
         <h1>Your Board Game Collection</h1>
+        {games.length > 0 ? (
         <table className="table align-middle">
           <thead>
             <tr>
@@ -60,6 +61,9 @@ export default function GamesList() {
             ))}
           </tbody>
         </table>
+        ) : (
+          <p>You have no games in your collection.</p>
+        )}
         <Link to="/games/add"><HiPlus /> Add a Game to Your Collection</Link>
       </div>
     </PageTemplate>
