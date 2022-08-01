@@ -80,8 +80,9 @@ export async function getUserGames() {
   const userSnap = await getDoc(userRef);
   if(!userSnap.exists()) return false // todo: throw error
   const user = userSnap.data();
-  const userGames = user.games || [];
-  // todo: extract above into own function. it is duplicated in addGameToUser
+  const userGames = user.games;
+
+  if(!userGames) { return []; } // if user has no games, return an empty array
   
   // get data from db based on user list
   const gameQuery = query(
