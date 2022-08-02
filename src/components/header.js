@@ -17,6 +17,11 @@ export default function Header() {
             <li className="nav-item me-3">
               <Link to="/games" className="nav-link">Game Collection</Link>
             </li>
+            {user && !loading && (
+              <li className="nav-item me-3">
+                <Link to="/account" className="nav-link">Account</Link>
+              </li>
+            )}
           </ul>
         </nav>
         <div>
