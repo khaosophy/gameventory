@@ -5,6 +5,7 @@ import {
   Navigate,
 } from 'react-router-dom';
 import GamesList from './pages/games-list';
+import Account from './pages/account';
 import Login from './pages/login';
 import PasswordReset from './pages/password-reset';
 import Register from './pages/register';
@@ -24,6 +25,10 @@ function App() {
             <Route index element={<Navigate to="/games" />} />
             <Route path="/games" element={<GamesList />} />
             <Route path="/games/add" element={<AddGame />} />
+          </Route>
+
+          <Route element={<ProtectedRoute />}>
+            <Route path="/account" element={<Account />} />
           </Route>
           
           <Route path="/login" element={<Login />} />

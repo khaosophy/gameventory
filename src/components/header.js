@@ -1,6 +1,6 @@
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
-import { auth, logout } from '../firebase';
+import { auth } from '../firebase';
 
 import logo from '../assets/logo.png';
 
@@ -17,17 +17,15 @@ export default function Header() {
             <li className="nav-item me-3">
               <Link to="/games" className="nav-link">Game Collection</Link>
             </li>
+            {user && !loading && (
+              <li className="nav-item me-3">
+                <Link to="/account" className="nav-link">Account</Link>
+              </li>
+            )}
           </ul>
         </nav>
         <div>
-          {user && !loading ? (
-            <button
-              className="btn btn-danger"
-              onClick={logout}
-            >
-              Log out
-            </button>
-          ) : (
+          {!user && !loading && (
             <Link to="/login" className="btn btn-primary">
               Login
             </Link>

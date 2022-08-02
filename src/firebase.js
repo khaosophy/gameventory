@@ -69,6 +69,37 @@ export async function resetPasswordEmail(email) {
   }
 }
 
+export async function getUserProfile(userId) {
+  if(!userId) return;
+  try {
+    const userRef = doc(db, 'users', userId);
+    const res = await getDoc(userRef);
+    const data = res.data();
+    return {
+      name: data.name,
+      location: data.location,
+    };
+  } catch (err) {
+    handleError(err);
+  }
+}
+
+export async function updateUserProfile(name, location) {
+  try {
+    const userId = auth.currentUser.uid;
+    const userRef = doc(db, 'users', userId);
+    const userSnap = await getDoc(userRef);
+    if(!userSnap.exists()) return false; // todo: throw error
+
+    await updateDoc(userRef, {
+      name,
+      location,
+    })
+  } catch (err) {
+    handleError(err);
+  }
+}
+
 export function logout() {
   signOut(auth);
 }
