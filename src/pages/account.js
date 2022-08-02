@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import md5 from 'md5';
 import { updateUserProfile, getUserProfile, auth, logout } from '../firebase';
 import InputField from '../components/input-field';
 import PageTemplate from '../templates/page-template';
@@ -45,8 +46,10 @@ export default function Account() {
 
               <div className="row">
                 <div className="col-md-4">
-                  <img src="https://placehold.jp/200x200.png" alt="" />
-                  <button className="btn btn-link px-0">Set profile image</button>
+                  <img src={`https://www.gravatar.com/avatar/${md5(user.email)}?size=200`} alt="" />
+                  <a href="https://gravatar.com" className="btn btn-link px-0" target="_blank" rel="noreferrer">
+                    Set profile image &gt;
+                  </a>
                 </div>
                 <div className="col-md-8">
                   <form onSubmit={handleSubmit}>
