@@ -27,7 +27,9 @@ function App() {
             <Route path="/games/add" element={<AddGame />} />
           </Route>
 
-          <Route path="/account" element={<Account />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="/account" element={<Account />} />
+          </Route>
           
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
