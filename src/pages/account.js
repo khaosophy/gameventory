@@ -51,6 +51,14 @@ export default function Account() {
                 <div className="col-md-8">
                   <form onSubmit={handleSubmit}>
                     <InputField
+                      id="accountEmail"
+                      label="Email"
+                      value={user.email}
+                      onChange={() => { /* no-op */}}
+                      disabled
+                    />
+
+                    <InputField
                       id="profileName"
                       label="Name"
                       value={name}

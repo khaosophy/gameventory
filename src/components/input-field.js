@@ -25,6 +25,8 @@ export default function InputField(props) {
         onChange={props.onChange}
         autoComplete={props.autoComplete}
         autoFocus={props.autoFocus}
+        disabled={props.disabled}
+        required={props.required}
       />
     </>
   )
@@ -48,4 +50,6 @@ InputField.propTypes = {
   // consider changing disableMargin to something more contextual, like `isInputGroup`
   disableMargin: PropTypes.bool,
   autoFocus: PropTypes.bool,
+  required: PropTypes.bool,
+  disabled: PropTypes.bool,
 }
