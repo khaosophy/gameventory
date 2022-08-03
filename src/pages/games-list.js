@@ -11,7 +11,12 @@ export default function GamesList() {
   const [games, setGames] = useState([]);
   const [isDataLoading, setIsDataLoading] = useState(true);
 
+  /* todo: group Player columns and Playtime columns */
   const columns = useMemo(() => [
+    {
+      Header: 'ID',
+      accessor: 'atlasId',
+    },
     {
       Header: 'Game Name',
       accessor: 'name',
@@ -31,7 +36,7 @@ export default function GamesList() {
     {
       Header: 'Max Playtime',
       accessor: 'maxPlaytime',
-    }
+    },
   ], []);
 
   const {
@@ -40,7 +45,38 @@ export default function GamesList() {
     headerGroups,
     rows,
     prepareRow,
-  } = useTable({ columns, data: games, initialState: { sortBy: [{id: 'name' }]}}, useSortBy);
+  } = useTable({ 
+    columns,
+    data: games,
+    initialState: { 
+      sortBy: [{id: 'name' }],
+      hiddenColumns: ['atlasId']
+    }},
+    useSortBy,
+    hooks => {
+      hooks.visibleColumns.push(columns => {
+        // add DELETE column to end of table
+        return [
+          ...columns,
+          {
+            id: 'delete',
+            disableSortBy: true,
+            Cell: (({ row }) => {
+              return (
+                <button
+                  className="btn btn-outline-danger"
+                  title="Remove from your Collection"
+                  onClick={() => handleRemoveGame(row.values.atlasId)}
+                >
+                  Remove
+                </button>
+              );
+            }),
+          },
+        ]
+      })
+    },
+  );
 
   useEffect(() => {
     // on mount, fetch game data
@@ -56,8 +92,7 @@ export default function GamesList() {
   if(!games) return;
 
   const handleRemoveGame = async (id) => {
-    /* todo: integrate this with React Table */
-    if(!window.confirm('Are you sure you want to delete this game from your collection?')) return;
+    if(!window.confirm('Are you sure you want to remove this game from your collection?')) return;
     setIsDataLoading(true);
     await removeGameFromUserCollection(id);
     const newGameList = [...games].filter(game => game.atlasId !== id);
@@ -70,23 +105,26 @@ export default function GamesList() {
       <div className="container">
         <h1>Your Board Game Collection</h1>
         {games.length > 0 ? (<>
-          {/* <OldTable games={games} removeGame={handleRemoveGame} /> */}
           <table className="table align-middle" {...getTableProps()}>
             <thead>
               {headerGroups.map(headerGroup => (
                 <tr {...headerGroup.getHeaderGroupProps()}>
-                  {headerGroup.headers.map(column => (
-                    <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                      {column.render('Header')}
-                      <span>
-                        {column.isSorted
-                          ? column.isSortedDesc
-                            ? <TiArrowSortedUp />
-                            : <TiArrowSortedDown />
-                        : <TiArrowUnsorted />}
-                      </span>
-                    </th>
-                  ))}
+                  {headerGroup.headers.map(column => {
+                    return (
+                      <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                        {column.render('Header')}
+                        <span>
+                          {column.isSorted
+                            ? column.isSortedDesc
+                              ? <TiArrowSortedUp />
+                              : <TiArrowSortedDown />
+                          : column.canSort 
+                            ? <TiArrowUnsorted />
+                            : ''}
+                        </span>
+                      </th>
+                    );
+                  })}
                 </tr>
               ))}
             </thead>
@@ -113,33 +151,3 @@ export default function GamesList() {
     </PageTemplate>
   );
 }
-
-const OldTable = ({ games, removeGame }) => (
-  <table className="table align-middle">
-    <thead>
-      <tr>
-        <th>Game Name</th>
-        <th>Number of Players</th>
-        <th>Playtime</th>
-      </tr>
-    </thead>
-    <tbody>
-      {games.map(game => (
-        <tr key={game.name}>
-          <td>{game.name}</td>
-          <td>{game.minPlayers} - {game.maxPlayers}</td>
-          <td>{game.minPlaytime} - {game.maxPlaytime}</td>
-          <td>
-            <button
-              className="btn btn-outline-danger"
-              title="Remove from your Collection"
-              onClick={() => removeGame(game.atlasId)}
-            >
-              Remove
-            </button>
-          </td>
-        </tr>
-      ))}
-    </tbody>
-  </table>
-)
