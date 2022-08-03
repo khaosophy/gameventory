@@ -11,10 +11,9 @@ export default function GamesList() {
   const [games, setGames] = useState([]);
   const [isDataLoading, setIsDataLoading] = useState(true);
 
-  /* todo: group Player columns and Playtime columns */
   const columns = useMemo(() => [
     {
-      Header: 'ID',
+      Header: 'ID', // this column is hidden, and used just to pass the game ID to the row
       accessor: 'atlasId',
     },
     {
@@ -22,20 +21,30 @@ export default function GamesList() {
       accessor: 'name',
     },
     {
-      Header: 'Min Players',
-      accessor: 'minPlayers',
+      Header: 'Players',
+      columns: [
+        {
+          Header: 'min',
+          accessor: 'minPlayers',
+        },
+        {
+          Header: 'max',
+          accessor: 'maxPlayers',
+        },
+      ]
     },
     {
-      Header: 'Max Players',
-      accessor: 'maxPlayers',
-    },
-    {
-      Header: 'Min Playtime',
-      accessor: 'minPlaytime',
-    },
-    {
-      Header: 'Max Playtime',
-      accessor: 'maxPlaytime',
+      Header: 'Playtime',
+      columns: [
+        {
+          Header: 'min',
+          accessor: 'minPlaytime',
+        },
+        {
+          Header: 'max',
+          accessor: 'maxPlaytime',
+        },
+      ]
     },
   ], []);
 
