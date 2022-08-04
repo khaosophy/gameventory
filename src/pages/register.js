@@ -16,8 +16,8 @@ export default function Register() {
   /* todo: update/change password page */
 
   useEffect(() => {
-    if(loading) return;
-    if (user) navigate('/');
+    if (loading) return;
+    if (user) navigate('/games');
   }, [user, loading, navigate]);
 
   function handleRegister(e) {
