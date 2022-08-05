@@ -1,5 +1,5 @@
-# Gamebook
-Tired of getting together with your friends and spending hours trying to decide what to play? Gamebook aims to make board game nights quicker and easier than ever before!
+# GameVentory
+Tired of getting together with your friends and spending hours trying to decide what to play? GameVentory aims to make board game nights quicker and easier than ever before!
 
 ## Planned Features
 Here is a list of upcoming features:
