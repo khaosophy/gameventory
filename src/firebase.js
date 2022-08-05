@@ -16,6 +16,7 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
+  updatePassword,
   signOut,
 } from "firebase/auth";
 
@@ -61,9 +62,19 @@ export async function registerWithEmailAndPassword(name, email, password) {
 }
 
 export async function resetPasswordEmail(email) {
+  /* todo: I don't think this email is working */
   try {
     await sendPasswordResetEmail(auth, email);
     alert('Password reset link sent.');
+  } catch (err) {
+    handleError(err);
+  }
+}
+
+export async function changePassword(password) {
+  try {
+    await updatePassword(auth.currentUser, password);
+    alert('Password updated');
   } catch (err) {
     handleError(err);
   }

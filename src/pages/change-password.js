@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from '../firebase';
+import { auth, changePassword } from '../firebase';
 import PageTemplate from '../templates/page-template';
 import InputField from '../components/input-field';
 
@@ -21,18 +21,8 @@ export default function PasswordChange() {
 
   async function handlePasswordChange(e) {
     e.preventDefault();
-    // await updatePassword(newPass);
-
-    console.log('something happen?');
-    
-    // debugger;
-    // if(error) {
-    //   console.error(error);
-    //   return;
-    // }
-
-    // alert('Updated password to ' + newPass);
-    // navigate('/account');
+    await changePassword(newPass);
+    navigate('/account');
   }
 
   return (
