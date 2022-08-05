@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import md5 from 'md5';
+import { Link } from 'react-router-dom';
 import { updateUserProfile, getUserProfile, auth, logout } from '../firebase';
 import InputField from '../components/input-field';
 import PageTemplate from '../templates/page-template';
@@ -92,6 +93,10 @@ export default function Account() {
               >
                 Log out
               </button>
+
+              <Link className="mt-3" to="/change-password">
+                Change Password
+              </Link>
             </div>
           </div>
         </div>

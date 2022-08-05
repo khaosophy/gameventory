@@ -8,6 +8,7 @@ import GamesList from './pages/games-list';
 import Account from './pages/account';
 import Login from './pages/login';
 import PasswordReset from './pages/password-reset';
+import PasswordChange from './pages/change-password';
 import Register from './pages/register';
 import AddGame from './pages/add-game';
 import NotFoundPage from './pages/404';
@@ -34,6 +35,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/reset-password" element={<PasswordReset />} />
+          <Route path="/change-password" element={<PasswordChange />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
