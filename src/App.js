@@ -12,7 +12,6 @@ import Register from './pages/register';
 import AddGame from './pages/add-game';
 import NotFoundPage from './pages/404';
 import ProtectedRoute from './components/protected-route';
-import Table from './pages/table';
 
 function App() {
   return (
@@ -31,8 +30,6 @@ function App() {
           <Route element={<ProtectedRoute />}>
             <Route path="/account" element={<Account />} />
           </Route>
-
-          <Route path="/table" element={<Table />} />
           
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
