@@ -75,8 +75,10 @@ export async function changePassword(password) {
   try {
     await updatePassword(auth.currentUser, password);
     alert('Password updated');
+    return true;
   } catch (err) {
     handleError(err);
+    return false;
   }
 }
 

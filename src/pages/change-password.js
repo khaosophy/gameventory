@@ -21,8 +21,10 @@ export default function PasswordChange() {
 
   async function handlePasswordChange(e) {
     e.preventDefault();
-    await changePassword(newPass);
-    navigate('/account');
+    const res = await changePassword(newPass);
+    if (res) {
+      navigate('/account');
+    }
   }
 
   return (
