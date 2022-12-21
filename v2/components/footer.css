@@ -1,0 +1,12 @@
+footer {
+  margin-top: auto;
+}
+
+footer a {
+  color: white;
+}
+
+footer a:hover {
+  color: white;
+  text-decoration: none;
+}
