@@ -5,7 +5,6 @@ import { createClient } from '@supabase/supabase-js';
 
 
 export default function Home({ data }) {
-  console.log(data);
   return (
     <>
       <Head>
