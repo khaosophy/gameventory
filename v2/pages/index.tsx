@@ -1,10 +1,11 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
+import Head from 'next/head';
 
-const inter = Inter({ subsets: ['latin'] })
+// Create a single supabase client for interacting with your database
+import { createClient } from '@supabase/supabase-js';
 
-export default function Home() {
+
+export default function Home({ data }) {
+  console.log(data);
   return (
     <>
       <Head>
@@ -15,8 +16,27 @@ export default function Home() {
       </Head>
       
       <div className="container">
-        Test
+        <ul>
+          {data.map(game => <li key={game.id}>{game.name}</li>)}
+        </ul>
       </div>
     </>
   )
+}
+
+export async function getServerSideProps() {
+  const supabase = createClient(process.env.DB_URL, process.env.DB_API_KEY);
+  // todo: return games
+  const { data, error } = await supabase
+    .from('games')
+    .select();
+
+  if(error) {
+    // todo: throw error on page
+    console.error(error.message);
+  }
+
+  return {
+    props: { data },
+  }
 }
