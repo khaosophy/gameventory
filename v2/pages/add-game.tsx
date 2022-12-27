@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Head from 'next/head';
-import { bgSearch } from '../lib/bgatlas';
+// import { bgSearch } from '../lib/bgatlas';
 import InputField from '../components/InputField';
 // import GameList from '../components/game-list';
 import Loading from '../components/Loading';
@@ -14,12 +14,8 @@ export default function AddGame() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    /**
-     * First, check against the Supabase database. (TODO)
-     * If nothing is found, query the Board Game Atlas API
-     */
-    // todo: bgSearch logic needs to be moved to an next API
-    const { games, count }= await bgSearch(name);
+    const res = await fetch(`/api/games/lookup?name=${name}`);
+    const games = await res.json();
     console.log(games);
     setGames(games);
     setCount(count);
