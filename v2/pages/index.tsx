@@ -2,6 +2,7 @@ import Head from 'next/head';
 
 // Create a single supabase client for interacting with your database
 import { createClient } from '@supabase/supabase-js';
+import Link from 'next/link';
 
 
 export default function Home({ data }) {
@@ -18,6 +19,7 @@ export default function Home({ data }) {
         <ul>
           {data.map(game => <li key={game.id}>{game.name}</li>)}
         </ul>
+        <Link href="/add-game" className='btn btn-primary'>Add Game</Link>
       </div>
     </>
   )
