@@ -28,8 +28,9 @@ export default async function handler(
       bgAtlasId: game.id,
       minPlayers: game.min_players,
       maxPlayers: game.max_players,
-      minPlayTime: game.min_playtime,
-      maxPlayTime: game.max_playtime,
+      minPlaytime: game.min_playtime,
+      maxPlaytime: game.max_playtime,
+      image: game.image_url,
     }
   ));
   res.status(200).json(gameData);

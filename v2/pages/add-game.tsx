@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import Head from 'next/head';
-// import { bgSearch } from '../lib/bgatlas';
 import InputField from '../components/InputField';
-// import GameList from '../components/game-list';
+import GameList from '../components/GameList';
 import Loading from '../components/Loading';
 
 export default function AddGame() {
@@ -16,9 +15,8 @@ export default function AddGame() {
     setLoading(true);
     const res = await fetch(`/api/games/lookup?name=${name}`);
     const games = await res.json();
-    console.log(games);
     setGames(games);
-    setCount(count);
+    setCount(games.length);
     setLoading(false);
   }
 
@@ -46,7 +44,7 @@ export default function AddGame() {
           <button type="submit" className="btn btn-primary">Find</button>
         </div>
 
-        {/* <GameList games={games} count={count} /> */}
+        <GameList games={games} count={count} />
       </form>
     </div>
   )
