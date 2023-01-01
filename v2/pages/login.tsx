@@ -2,9 +2,11 @@ import { useState } from 'react';
 import { createClient } from '@supabase/supabase-js'
 import Head from 'next/head';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import InputField from '../components/InputField';
 
 export default function Login() {
+  const router = useRouter();
   const supabase = createClient(
     'https://drslwhfnwkzeyqnmsrnz.supabase.co',
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRyc2x3aGZud2t6ZXlxbm1zcm56Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzE1ODM5MjksImV4cCI6MTk4NzE1OTkyOX0.P16qxC6m94Sevw5Asxxspy5Dhtp1vWsA3iUlIvWaYls');
@@ -20,7 +22,12 @@ export default function Login() {
       email,
       password,
     });
-    debugger;
+    if (error) {
+      return console.error(error);
+    }
+    if (data.session) {
+      return router.push('/');
+    }
   }
 
   return (
