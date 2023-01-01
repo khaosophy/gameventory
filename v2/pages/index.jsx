@@ -1,11 +1,21 @@
+
+import { useEffect } from 'react';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 // Create a single supabase client for interacting with your database
 import { createClient } from '@supabase/supabase-js';
-import Link from 'next/link';
-
+import { useSession } from '@supabase/auth-helpers-react';
 
 export default function Home({ data }) {
+  const session = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!session) router.push('/login'); 
+  }, [session]);
+
   return (
     <>
       <Head>
@@ -16,18 +26,22 @@ export default function Home({ data }) {
       </Head>
       
       <div className="container">
-        <ul>
-          {data.map(game => <li key={game.id}>{game.name}</li>)}
-        </ul>
-        <Link href="/add-game" className='btn btn-primary'>Add Game</Link>
+        {session ? (<>
+          <ul>
+            {data.map(game => <li key={game.id}>{game.name}</li>)}
+          </ul>
+          <Link href="/add-game" className='btn btn-primary'>Add Game</Link>
+        </>) : (
+          <p>Redirecting to <Link href="/login">the login page</Link>...</p>
+        )}
       </div>
     </>
   )
 }
 
 export async function getServerSideProps() {
+  // todo: use supabase client from _app?
   const supabase = createClient(process.env.DB_URL, process.env.DB_API_KEY);
-  // todo: return games
   const { data, error } = await supabase
     .from('games')
     .select();
