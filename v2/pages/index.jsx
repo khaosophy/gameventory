@@ -1,21 +1,12 @@
 
-import { useEffect } from 'react';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 // Create a single supabase client for interacting with your database
-import { createClient } from '@supabase/supabase-js';
-import { useSession } from '@supabase/auth-helpers-react';
+import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
+import { useEffect } from 'react';
 
-export default function Home({ data }) {
-  const session = useSession();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!session) router.push('/login'); 
-  }, [session]);
-
+export default function Home({ games }) {
   return (
     <>
       <Head>
@@ -26,22 +17,33 @@ export default function Home({ data }) {
       </Head>
       
       <div className="container">
-        {session ? (<>
-          <ul>
-            {data.map(game => <li key={game.id}>{game.name}</li>)}
-          </ul>
-          <Link href="/add-game" className='btn btn-primary'>Add Game</Link>
-        </>) : (
-          <p>Redirecting to <Link href="/login">the login page</Link>...</p>
-        )}
+        <ul>
+          {games.map(game => <li key={game.id}>{game.name}</li>)}
+        </ul>
+        <Link href="/add-game" className='btn btn-primary'>Add Game</Link>
       </div>
     </>
   )
 }
 
-export async function getServerSideProps() {
-  // todo: use supabase client from _app?
-  const supabase = createClient(process.env.DB_URL, process.env.DB_API_KEY);
+export const getServerSideProps = async (ctx) => {
+  // Create authenticated Supabase Client
+  const supabase = createServerSupabaseClient(ctx);
+  // Check if we have a session
+  const {
+    data: { session },
+  } = await supabase.auth.getSession()
+  console.log(session);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    }
+  }
+
   const { data, error } = await supabase
     .from('games')
     .select();
@@ -52,6 +54,10 @@ export async function getServerSideProps() {
   }
 
   return {
-    props: { data },
+    props: {
+      games: data,
+      initialSession: session,
+      user: session.user,
+    },
   }
 }
