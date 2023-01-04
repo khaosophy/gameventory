@@ -1,7 +1,16 @@
+import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react';
 import logo from '../assets/logo.png';
 import Image from 'next/image';
 
 export default function Header() {
+  const user = useUser();
+  const supabase = useSupabaseClient();
+
+  const handleLogout = async () => {
+    const { error } = await supabase.auth.signOut();
+    if(error) console.error(error.message);
+  }
+
   return (
     <header className="border-bottom">
       <div className="container py-2 d-flex align-items-center">
@@ -13,7 +22,7 @@ export default function Header() {
             <li className="nav-item me-3">
               <a href="/games" className="nav-link">Game Collection</a>
             </li>
-            {/* {user && !loading && (
+            {/* {user && (
               <li className="nav-item me-3">
                 <a href="/account" className="nav-link">Account</a>
               </li>
@@ -21,11 +30,14 @@ export default function Header() {
           </ul>
         </nav>
         <div>
-          {/* {!user && !loading && ( */}
-          <a href="/login" className="btn btn-primary">
-            Login
-          </a>
-          {/* )} */}
+          {user
+            ? <button onClick={handleLogout} className="btn btn-outline-secondary">Log out</button>
+            : (
+              <a href="/login" className="btn btn-primary">
+                Log in
+              </a>
+            )
+          }
         </div>
       </div>
     </header>
