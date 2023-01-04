@@ -1,14 +1,13 @@
-import { useState } from 'react';
-import { createClient } from '@supabase/supabase-js'
+import { useState, useEffect } from 'react';
+import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import InputField from '../components/InputField';
 
 export default function Register() {  
-  const supabase = createClient(
-    'https://drslwhfnwkzeyqnmsrnz.supabase.co',
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRyc2x3aGZud2t6ZXlxbm1zcm56Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzE1ODM5MjksImV4cCI6MTk4NzE1OTkyOX0.P16qxC6m94Sevw5Asxxspy5Dhtp1vWsA3iUlIvWaYls');
+  const supabase = useSupabaseClient();
+  const user = useUser();
   const router = useRouter();
 
   const [name, setName] = useState('');
@@ -16,12 +15,16 @@ export default function Register() {
   const [password, setPassword] = useState('');
   const [confirmPass, setConfirmPass] = useState('');
 
+  useEffect(() => {
+    if(user) router.push('/')
+  }, [user]);
+
   /* todo: update/change password page */
 
   async function handleRegister(e) {
     e.preventDefault();
     // todo: confirm passwords?
-    // registerWithEmailAndPassword(name, email, pass);
+    // todo: save name to database
     // todo: extract to a lib function and add entry for users name
     const { data, error } = await supabase.auth.signUp({
       email,
