@@ -16,6 +16,7 @@ export default function Register() {
   const [confirmPass, setConfirmPass] = useState('');
 
   useEffect(() => {
+    console.log(user);
     if(user) router.push('/')
   }, [user]);
 
@@ -24,18 +25,34 @@ export default function Register() {
   async function handleRegister(e) {
     e.preventDefault();
     // todo: confirm passwords?
-    // todo: save name to database
     // todo: extract to a lib function and add entry for users name
-    const { data, error } = await supabase.auth.signUp({
+    const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
       email,
       password,
     });
-    // todo: does signUp set a session?
-    if (error) {
+
+    if (signUpError) {
       // todo: display error
-      return console.error(error);
+      return console.error(signUpError);
     }
-    if (data.session) {
+
+    console.log(signUpData);
+    
+    const firstName = name.split(' ')[0];
+    const lastName = name.split(' ').slice(1);
+
+    // todo: save name to database. this didn't work...
+    const { error: dbError } = await supabase
+      .from('profiles')
+      .insert({
+        id: signUpData.id,
+        firstName,
+        lastName,
+      })
+
+    if (dbError) return console.error(dbError);
+
+    if (signUpData.session) {
       return router.push('/');
     }
   }
