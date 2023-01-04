@@ -30,6 +30,7 @@ export default function Register() {
       email,
       password,
     });
+    // todo: does signUp set a session?
     if (error) {
       // todo: display error
       return console.error(error);
