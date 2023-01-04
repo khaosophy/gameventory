@@ -1,12 +1,28 @@
 
+import { useEffect, useState } from 'react';
+import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react';
 import Head from 'next/head';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import Loading from '../components/Loading';
 
-// Create a single supabase client for interacting with your database
-import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
-import { useEffect } from 'react';
+export default function Home() {
+  const supabase = useSupabaseClient();
+  const user = useUser();
+  const router = useRouter();
+  const [games, setGames] = useState([]);
 
-export default function Home({ games }) {
+  useEffect(() => {
+    async function loadGames() {
+      const { data, error } = await supabase.from('games').select();
+      if(error) return console.error(error.message);
+      setGames(data);
+    }
+
+    if(!user) router.push('/login');
+    if(user) loadGames();
+  }, [user]);
+
   return (
     <>
       <Head>
@@ -17,47 +33,17 @@ export default function Home({ games }) {
       </Head>
       
       <div className="container">
-        <ul>
-          {games.map(game => <li key={game.id}>{game.name}</li>)}
-        </ul>
-        <Link href="/add-game" className='btn btn-primary'>Add Game</Link>
+        {games.length === 0 
+          ? <Loading />
+          : (<>
+            <ul>
+              {games.map(game => <li key={game.id}>{game.name}</li>)}
+            </ul>
+            <Link href="/add-game" className='btn btn-primary'>Add Game</Link>
+          </>)
+        }
+        
       </div>
     </>
   )
-}
-
-export const getServerSideProps = async (ctx) => {
-  // Create authenticated Supabase Client
-  const supabase = createServerSupabaseClient(ctx);
-  // Check if we have a session
-  const {
-    data: { session },
-  } = await supabase.auth.getSession()
-  console.log(session);
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: '/login',
-        permanent: false,
-      },
-    }
-  }
-
-  const { data, error } = await supabase
-    .from('games')
-    .select();
-
-  if(error) {
-    // todo: throw error on page
-    console.error(error.message);
-  }
-
-  return {
-    props: {
-      games: data,
-      initialSession: session,
-      user: session.user,
-    },
-  }
 }
