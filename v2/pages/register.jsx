@@ -13,7 +13,6 @@ export default function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPass, setConfirmPass] = useState('');
 
   useEffect(() => {
     console.log(user);
@@ -24,7 +23,6 @@ export default function Register() {
 
   async function handleRegister(e) {
     e.preventDefault();
-    // todo: confirm passwords?
     // todo: extract to a lib function and add entry for users name
     const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
       email,
@@ -89,15 +87,6 @@ export default function Register() {
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          autoComplete="new-password"
-        />
-
-        <InputField
-          id="passwordConfirmation"
-          label="Confirm Password"
-          type="password"
-          value={confirmPass}
-          onChange={(e) => setConfirmPass(e.target.value)}
           autoComplete="new-password"
         />
         
