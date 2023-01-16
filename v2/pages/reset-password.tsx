@@ -22,9 +22,7 @@ export default function PasswordReset() {
   return (
     <div className="container">
       <Head>
-        <title>Reset Password</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <title>Reset Password | GameVentory</title>
       </Head>
       <h1 className="mb-3">Reset Password</h1>
       <form onSubmit={handlePasswordReset}>

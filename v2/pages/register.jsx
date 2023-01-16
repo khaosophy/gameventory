@@ -58,9 +58,7 @@ export default function Register() {
   return (
     <div className="container">
       <Head>
-        <title>Register</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <title>Register | GameVentory</title>
       </Head>
       <h1 className="mb-3">Register</h1>
       <form onSubmit={handleRegister}>
