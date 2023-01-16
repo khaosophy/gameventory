@@ -14,7 +14,7 @@ export default function Login() {
   const [password, setPassword] = useState('');
 
   useEffect(() => {
-    if(user) router.push('/')
+    if(user) router.push('/collection');
   }, [user]);
 
   const handleLogin = async (e) => {
@@ -29,7 +29,7 @@ export default function Login() {
       return console.error(error);
     }
     if (data.session) {
-      return router.push('/');
+      return router.push('/collection');
     }
   }
 

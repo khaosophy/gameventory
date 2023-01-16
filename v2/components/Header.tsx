@@ -20,7 +20,7 @@ export default function Header() {
         <nav>
           <ul className="navbar-nav d-flex flex-row">
             <li className="nav-item me-3">
-              <a href="/games" className="nav-link">Game Collection</a>
+              <a href="/collection" className="nav-link">Game Collection</a>
             </li>
             {/* {user && (
               <li className="nav-item me-3">

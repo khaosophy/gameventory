@@ -16,7 +16,7 @@ export default function Register() {
 
   useEffect(() => {
     console.log(user);
-    if(user) router.push('/')
+    if(user) router.push('/collection');
   }, [user]);
 
   /* todo: update/change password page */
@@ -51,7 +51,7 @@ export default function Register() {
     if (dbError) return console.error(dbError);
 
     if (signUpData.session) {
-      return router.push('/');
+      return router.push('/collection');
     }
   }
 
