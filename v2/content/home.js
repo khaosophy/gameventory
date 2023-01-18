@@ -23,7 +23,7 @@ const home = {
         type: 'h2',
         text: 'Track Your Games',
       },
-      description: 'Understanding your collection and those in your network ',
+      description: 'Understand your collection of board games and the games in your network ',
       image: concordiaInPlay,
       alt: 'Playing a game of Concordia, with pieces and cards laid out on the table, and people sitting around it',
       /* todo: cta */
