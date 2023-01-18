@@ -36,6 +36,7 @@ export default function HomePage() {
                   {'me-auto': !isEven(_i)}
                 )}
                 width="500"
+                alt={content.alt}
               />
             </div>
           </div>

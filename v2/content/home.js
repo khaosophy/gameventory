@@ -15,6 +15,7 @@ const home = {
       tagline: 'The board game social network',
       description: 'Come together with your friends over a shared passion for board games.',
       image: ticketToRideInPlay,
+      alt: 'Trains laid out on the Ticket to Ride map',
       /* todo: cta */
     },
     {
@@ -24,6 +25,7 @@ const home = {
       },
       description: 'Understanding your collection and those in your network ',
       image: concordiaInPlay,
+      alt: 'Playing a game of Concordia, with pieces and cards laid out on the table, and people sitting around it',
       /* todo: cta */
     },
     { 
@@ -33,6 +35,7 @@ const home = {
       },
       description: 'Build a network of people you enjoy playing with',
       image: friendsAroundTable,
+      alt: 'People sitting and socializing around a wooden table',
     },
     {
       title: {
@@ -41,6 +44,7 @@ const home = {
       },
       description: 'Invite friends you know and trust',
       image: smileyLadiesAtComputer,
+      alt: 'Two women are smiling over a computer',
     },
     {
       title: {
@@ -49,6 +53,7 @@ const home = {
       },
       description: 'Propose the games for your next outing',
       image: fistBump,
+      alt: 'Fist bump',
     },
     {
       title: {
@@ -57,6 +62,7 @@ const home = {
       },
       description: 'Let your friends vote on what games to play next',
       image: handsUp,
+      alt: 'People raising their hands up in the air',
     }
   ],
 };
